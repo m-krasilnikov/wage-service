@@ -1,0 +1,10 @@
+server.port: 8092
+
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/accounting}
+    username: ${JDBC_DATABASE_USERNAME:root}
+    password: ${JDBC_DATABASE_PASSWORD:secret}
+
+
+management.endpoints.web.exposure.include: health, info, env

@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: accounting
+    volumes:
+    - mysql:/var/lib/mysql
+    ports:
+    - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - 8090:8080
+
+volumes:
+  mysql:

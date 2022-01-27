@@ -1,0 +1,7 @@
+server.port: 8091
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+
+management.endpoints.web.exposure.include: health, info, env

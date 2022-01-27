@@ -1,0 +1,5 @@
+rootProject.name = 'wage-service'
+
+include 'producer-service'
+include 'consumer-service'
+
