@@ -4,6 +4,6 @@ import com.cloudmore.dto.WageRequest;
 
 public interface WageService {
 
-    void calculateWage(WageRequest wageRequest);
+    String saveWage(WageRequest wageRequest);
 
 }

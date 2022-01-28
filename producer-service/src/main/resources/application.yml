@@ -1,5 +1,14 @@
 server.port: 8091
 
+spring:
+  kafka:
+    producer:
+      retries: 32
+      bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic: ${KAFKA_TOPIC:wage}
+
 springdoc:
   swagger-ui:
     disable-swagger-default-url: true
