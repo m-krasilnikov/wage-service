@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class WageResponse {
-    private String eventId;
+    private String messageId;
 }

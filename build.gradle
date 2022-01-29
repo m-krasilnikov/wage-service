@@ -36,6 +36,7 @@ subprojects {
 	dependencyManagement {
 		dependencies {
 			dependency 'org.mapstruct:mapstruct:1.4.1.Final'
+			dependency 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 			dependency 'org.springdoc:springdoc-openapi-ui:1.6.4'
 		}
 	}

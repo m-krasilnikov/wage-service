@@ -1,11 +1,8 @@
 package com.cloudmore.service;
 
 import com.cloudmore.configuration.KafkaConfigurationProperties;
-import com.cloudmore.domain.Message;
 import com.cloudmore.dto.WageRequest;
 import com.cloudmore.exception.ProducerException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,21 +16,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class WageServiceImpl implements WageService {
     private final KafkaConfigurationProperties kafkaProperties;
-    private final KafkaTemplate<String, Message> kafkaTemplate;
-    private final ObjectMapper om;
+    private final KafkaTemplate<String, WageRequest> kafkaTemplate;
 
     @Override
     public String saveWage(WageRequest wageRequest) {
-        val messageId = UUID.randomUUID();
-        val message = new Message(messageId, wageRequest);
+        val messageId = UUID.randomUUID().toString();
         try {
             val producerRecord = new ProducerRecord<>(
-                kafkaProperties.getTopic(), messageId.toString(), message);
+                kafkaProperties.getTopic(), messageId, wageRequest);
             kafkaTemplate.send(producerRecord);
-            log.info("Message sended -> {}", om.writeValueAsString(wageRequest));
+            log.info("Message sent with id-> {}", messageId);
         } catch (Exception e) {
             throw new ProducerException(e);
         }
-        return messageId.toString();
+        return messageId;
     }
 }

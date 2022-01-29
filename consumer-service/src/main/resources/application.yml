@@ -6,5 +6,16 @@ spring:
     username: ${JDBC_DATABASE_USERNAME:root}
     password: ${JDBC_DATABASE_PASSWORD:secret}
 
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: wage-consumer
+      bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic: ${KAFKA_TOPIC:wage}
+
+tax.rate: ${TAX_RATE:1.1}
+
 
 management.endpoints.web.exposure.include: health, info, env

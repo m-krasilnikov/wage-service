@@ -5,6 +5,7 @@ import com.cloudmore.dto.WageResponse;
 import com.cloudmore.service.WageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1/wage-management")
+@RequestMapping(value = "api/v1/employee-management")
 @RequiredArgsConstructor
 public class WageController {
 
@@ -24,8 +25,8 @@ public class WageController {
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public WageResponse saveWage(@RequestBody WageRequest wageRequest) {
         log.info("Got request -> {}", wageRequest.toString());
-        var eventId = wageService.saveWage(wageRequest);
-        return new WageResponse(eventId);
+        val messageId = wageService.saveWage(wageRequest);
+        return new WageResponse(messageId);
     }
 
 }

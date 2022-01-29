@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS employee_wage
     name VARCHAR(255) NOT NULL,
     surname VARCHAR(255) NOT NULL,
     wage DECIMAL(19,2),
-    eventTime TIMESTAMP NOT NULL,
+    event_time TIMESTAMP NOT NULL,
     CONSTRAINT pk_employee PRIMARY KEY (name,surname)
 );
