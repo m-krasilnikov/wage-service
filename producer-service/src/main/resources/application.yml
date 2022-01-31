@@ -1,4 +1,4 @@
-server.port: 8091
+server.port: ${SERVICE_PORT:8091}
 
 spring:
   kafka:

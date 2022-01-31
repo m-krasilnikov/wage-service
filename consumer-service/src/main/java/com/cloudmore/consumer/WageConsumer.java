@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class WageConsumer{
+public class WageConsumer {
     private final ObjectMapper om;
     private final EmployeeWageService employeeWageService;
 

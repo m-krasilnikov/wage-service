@@ -9,3 +9,13 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'org.flywaydb:flyway-core'
 }
+
+jib {
+    from {
+        image = 'openjdk:11.0-jre-slim'
+    }
+    to {
+        image = 'cloudmore/consumer-service'
+        tags = ['latest', project.version]
+    }
+}

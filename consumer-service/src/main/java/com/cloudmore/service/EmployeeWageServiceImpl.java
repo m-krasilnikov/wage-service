@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class EmployeeWageServiceImpl implements EmployeeWageService {
+
     private final TaxConfiguration taxConfiguration;
     private final EmployeeManagementRepository repository;
     private final EmployeeWageMapper mapper;

@@ -1,4 +1,4 @@
-server.port: 8092
+server.port: ${SERVICE_PORT:8092}
 
 spring:
   datasource:

@@ -2,11 +2,13 @@ package com.cloudmore.controller.handler;
 
 import com.cloudmore.exception.ProducerException;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,15 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @ControllerAdvice(annotations = RestController.class)
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ProducerException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFound(final ProducerException exception) {
-        final ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setHttpStatus(HttpStatus.NOT_FOUND.value());
-        errorResponse.setException(exception.getMessage());
-        return errorResponse;
-    }
+    private final Function<FieldError, FieldErrorResponse> errorToFieldErrorResponse = error -> {
+        final FieldErrorResponse fieldError = new FieldErrorResponse();
+        fieldError.setErrorCode(error.getCode());
+        fieldError.setField(error.getField());
+        return fieldError;
+    };
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
@@ -45,12 +44,7 @@ public class RestExceptionHandler {
         final BindingResult bindingResult = exception.getBindingResult();
         final List<FieldErrorResponse> fieldErrorResponses = bindingResult.getFieldErrors()
                 .stream()
-                .map(error -> {
-                    final FieldErrorResponse fieldError = new FieldErrorResponse();
-                    fieldError.setErrorCode(error.getCode());
-                    fieldError.setField(error.getField());
-                    return fieldError;
-                })
+                .map(errorToFieldErrorResponse)
                 .collect(Collectors.toList());
         final ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST.value());
