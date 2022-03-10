@@ -7,10 +7,10 @@ spring:
     password: ${JDBC_DATABASE_PASSWORD:secret}
 
   kafka:
+    bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9093}
     consumer:
       auto-offset-reset: earliest
       group-id: wage-consumer
-      bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     topic: ${KAFKA_TOPIC:wage}
